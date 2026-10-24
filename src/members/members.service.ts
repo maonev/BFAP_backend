@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto.js';
 import { UpdateMemberDto } from './dto/update-member.dto.js';
+import { DatabaseService } from '../database/database.service.js';
 
 @Injectable()
 export class MembersService {
-  create(createMemberDto: CreateMemberDto) {
-    return 'This action adds a new member';
+  constructor(private readonly databaseService: DatabaseService) {}
+
+  async create(createMemberDto: CreateMemberDto) {
+    return this.databaseService.users.create({
+      data: createMemberDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all members`;
+  async findAll() {
+    return this.databaseService.users.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} member`;
+  async findOne(slug: string) {
+    return this.databaseService.users.findUnique({
+      where: { slug },
+    });
   }
 
-  update(id: number, updateMemberDto: UpdateMemberDto) {
-    return `This action updates a #${id} member`;
+  async update(slug: string, updateMemberDto: UpdateMemberDto) {
+    return this.databaseService.users.update({
+      where: { slug },
+      data: updateMemberDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} member`;
+  async remove(slug: string) {
+    return this.databaseService.users.delete({
+      where: { slug },
+    });
   }
 }
