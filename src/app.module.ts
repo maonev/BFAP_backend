@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import { MembersModule } from './members/members.module.js';
 import { DatabaseService } from './database/database.service.js';
 import { DatabaseModule } from './database/database.module.js';
 import { ConfigModule } from '@nestjs/config';
+import { TeamsModule } from './teams/teams.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -19,8 +19,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: 'YOUR_APP_SECRET',
       serviceId: 'backend',
     }),
-    MembersModule,
     DatabaseModule,
+    TeamsModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseService],

@@ -20,7 +20,7 @@ model Users {
   last_name       String             @db.VarChar(50)
   slug            String             @unique @db.VarChar(50)
   role            Role
-  refreshToken    String
+  refreshToken    String?
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
   userContents    User_Content?
