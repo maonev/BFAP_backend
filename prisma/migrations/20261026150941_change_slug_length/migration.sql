@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Users" ALTER COLUMN "slug" SET DATA TYPE VARCHAR(255);

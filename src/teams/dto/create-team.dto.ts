@@ -2,7 +2,9 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
+  Matches,
   MinLength,
 } from 'class-validator';
 
@@ -31,9 +33,12 @@ export class CreateTeamDto {
   @IsString()
   readonly last_name: string;
 
-  @IsNotEmpty()
-  @IsString()
-  readonly slug: string;
+  @IsOptional()
+  @Matches(/^[a-z-]+$/, {
+    message: 'A slug may only contain a name and a hyphen',
+  })
+  @MinLength(7)
+  readonly slug?: string;
 
   @IsEnum(UserRole, {
     message: 'Valid role required',
